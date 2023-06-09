@@ -23,7 +23,7 @@ public class RedisConfig {
     private Optional<Integer> redisPort;
     
 
-    @Value("${spring.redis.username}")
+    @Value("${spring.redis.user}")
     private String redisUsername;
     
 
