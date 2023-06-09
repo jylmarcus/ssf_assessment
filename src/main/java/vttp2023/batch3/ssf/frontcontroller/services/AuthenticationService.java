@@ -60,6 +60,18 @@ public class AuthenticationService {
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	// Write an implementation to check if a given user's login has been disabled
 	public boolean isLocked(String username) {
-		return repository.readUserStatus(username);
+		return repository.isUserLocked(username);
+	}
+
+	public void authenticateUser(String username) {
+		repository.setUserToAuthenticated(username);
+	}
+
+	public boolean isAuthenticated(String username) {
+		return repository.isUserAuthenticated(username);
+	}
+
+	public void logoutUser(String username) {
+		repository.deleteUserRecord(username);
 	}
 }

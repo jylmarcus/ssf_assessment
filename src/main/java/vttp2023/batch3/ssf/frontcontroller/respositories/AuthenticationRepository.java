@@ -18,10 +18,25 @@ public class AuthenticationRepository {
 		redisTemplate.opsForValue().setIfAbsent(username, "disabled", 30L, TimeUnit.MINUTES);
 	}
 
-	public boolean readUserStatus(String username) {
+	public boolean isUserLocked(String username) {
 		if(Optional.of(redisTemplate.opsForValue().get(username)).equals("disabled")) {
 			return true;
 		}
 		return false;
+	}
+
+	public void setUserToAuthenticated(String username) {
+		redisTemplate.opsForValue().setIfAbsent(username, "authenticated", 30L, TimeUnit.MINUTES);
+	}
+
+	public boolean isUserAuthenticated(String username) {
+		if(Optional.of(redisTemplate.opsForValue().get(username)).equals("authenticated")) {
+			return true;
+		}
+		return false;
+	}
+
+	public void deleteUserRecord(String username) {
+		redisTemplate.opsForValue().getAndExpire(username, 0, TimeUnit.SECONDS);
 	}
 }
