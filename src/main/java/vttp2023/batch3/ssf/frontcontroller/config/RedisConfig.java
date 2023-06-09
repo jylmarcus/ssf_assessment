@@ -1,4 +1,4 @@
-package vttp2023.batch3.ssf.config;
+package vttp2023.batch3.ssf.frontcontroller.config;
 
 import java.util.Optional;
 

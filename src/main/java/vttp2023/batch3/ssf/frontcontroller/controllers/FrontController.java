@@ -42,7 +42,7 @@ public class FrontController {
 		}
 
 		loginAttempts.putIfAbsent(loginForm.getUsername(), 0);
-		System.out.println("Login Attempts: " + loginAttempts.get(loginForm.getUsername()));
+		//System.out.println("Login Attempts: " + loginAttempts.get(loginForm.getUsername()));
 		ResponseEntity<String> resp = service.authenticate(loginForm.getUsername(), loginForm.getPassword());
 
 		if(service.isLocked(loginForm.getUsername())) {
@@ -84,7 +84,4 @@ public class FrontController {
 		redirectAttributes.addAttribute("username", loginForm.getUsername());
 		return "redirect:/protected";
 	}
-
-	// TODO: Task 6
-	
 }

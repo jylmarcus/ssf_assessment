@@ -19,7 +19,7 @@ public class AuthenticationRepository {
 	}
 
 	public boolean isUserLocked(String username) {
-		if(Optional.of(redisTemplate.opsForValue().get(username)).equals("disabled")) {
+		if(Optional.of(redisTemplate.opsForValue().get(username)).get().equals("disabled")) {
 			return true;
 		}
 		return false;
@@ -30,7 +30,7 @@ public class AuthenticationRepository {
 	}
 
 	public boolean isUserAuthenticated(String username) {
-		if(Optional.of(redisTemplate.opsForValue().get(username)).equals("authenticated")) {
+		if(Optional.of(redisTemplate.opsForValue().get(username)).get().equals("authenticated")) {
 			return true;
 		}
 		return false;
