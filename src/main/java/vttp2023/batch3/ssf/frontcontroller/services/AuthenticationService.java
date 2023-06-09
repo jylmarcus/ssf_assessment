@@ -1,6 +1,7 @@
 package vttp2023.batch3.ssf.frontcontroller.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,8 @@ public class AuthenticationService {
 	@Autowired
 	AuthenticationRepository repository;
 
-	private String AUTH_URL = "https://authservice-production-e8b2.up.railway.app/api/authenticate";
+	@Value("${authentication.api.url}")
+	private String authUrl;
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	// Write the authentication method in here
 	public ResponseEntity<String> authenticate(String username, String password) throws Exception {
@@ -28,7 +30,7 @@ public class AuthenticationService {
 			.build();
 
 		RequestEntity<String> req = RequestEntity
-			.post(AUTH_URL)
+			.post(authUrl)
 			.contentType(MediaType.APPLICATION_JSON)
 			.header("Accept", MediaType.APPLICATION_JSON_VALUE)
 			.body(json.toString(), String.class);
