@@ -1,10 +1,6 @@
 package vttp2023.batch3.ssf.frontcontroller.services;
 
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +10,13 @@ import org.springframework.web.client.RestTemplate;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import vttp2023.batch3.ssf.frontcontroller.respositories.AuthenticationRepository;
 
 @Service
 public class AuthenticationService {
 
 	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
+	AuthenticationRepository repository;
 
 	private String AUTH_URL = "https://authservice-production-e8b2.up.railway.app/api/authenticate";
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
@@ -54,16 +51,13 @@ public class AuthenticationService {
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	// Write an implementation to disable a user account for 30 mins
 	public void disableUser(String username) {
-		redisTemplate.opsForValue().setIfAbsent(username, "disabled", 30L, TimeUnit.MINUTES);
+		repository.setUserStatusToDisabled(username);
 	}
 
 	// TODO: Task 5
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	// Write an implementation to check if a given user's login has been disabled
 	public boolean isLocked(String username) {
-		if(Optional.of(redisTemplate.opsForValue().get(username)).equals("disabled")) {
-			return true;
-		}
-		return false;
+		return repository.readUserStatus(username);
 	}
 }
