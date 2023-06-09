@@ -35,6 +35,16 @@
 						<span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red;"></span>
 					</td>
 				</tr>
+				<tr th:if="${captcha != null}">
+					<td>
+						<label for="captcha" th:text="|What is ${captcha.query}? (Round to nearest integer)|"></label>
+					</td>
+					<td>
+							<input type="number" id="captcha" size="30"
+									placeholder="Answer" th:field="${captcha.inputSolution}">
+							<span class="error" th:if="${captchaError != null}" th:text="${captchaError}" style="color: red;"></span>
+					</td>
+				</tr>
 				<tr>
 					<td></td>
 					<td>
@@ -43,6 +53,7 @@
 				</tr>
 			</table>
 		</form>
+		<span class="error" th:if="${loginError != null}" th:text="${loginError}" style="color: red;"></span>
 		
 	</body>
 </html>
