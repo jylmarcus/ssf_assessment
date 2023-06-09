@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class AuthenticationRepository {
 
 	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
+	RedisTemplate<String, String> redisTemplate;
 	// TODO Task 5
 	// Use this class to implement CRUD operations on Redis
 	public void setUserStatusToDisabled(String username) {
