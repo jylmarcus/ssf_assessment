@@ -33,11 +33,7 @@ public class RedisConfig {
     public RedisTemplate<String, String> createRedisTemplate() {
         final RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
         config.setHostName(redisHost);
-        System.out.println(redisHost);
         config.setPort(redisPort.get());
-        System.out.println(redisPort.get());
-        System.out.println(redisPassword);
-        System.out.println(redisUsername);
         if(!redisUsername.isEmpty() && !redisPassword.isEmpty()){
             config.setUsername(redisUsername);
             config.setPassword(redisPassword);
